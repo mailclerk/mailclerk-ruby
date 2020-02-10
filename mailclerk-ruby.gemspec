@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.append File.expand_path("lib", __dir__)
-require "mailclerk/ruby/identity"
+require "mailclerk"
 
 Gem::Specification.new do |spec|
-  spec.name = Mailclerk::Ruby::Identity.name
-  spec.version = Mailclerk::Ruby::Identity.version
+  spec.name = MailClerk::Identity.name
+  spec.version = MailClerk::Identity.version
   spec.platform = Gem::Platform::RUBY
   spec.authors = [""]
   spec.email = ["noah.litvin@gmail.com"]
@@ -14,9 +14,9 @@ Gem::Specification.new do |spec|
   spec.license = "MIT"
 
   spec.metadata = {
-    "source_code_uri" => "",
-    "changelog_uri" => "/blob/master/CHANGES.md",
-    "bug_tracker_uri" => "/issues"
+    # "source_code_uri" => "",
+    # "changelog_uri" => "/blob/master/CHANGES.md",
+    # "bug_tracker_uri" => "/issues"
   }
 
 

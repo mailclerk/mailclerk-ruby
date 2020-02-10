@@ -1,7 +1,7 @@
 #! /usr/bin/env ruby
 
 require "bundler/setup"
-require "mailclerk/ruby"
+require "mailclerk"
 require "pry"
 require "pry-byebug"
 require "irb"
