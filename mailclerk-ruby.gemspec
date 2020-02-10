@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.append File.expand_path("lib", __dir__)
-require 'faraday'
 require "mailclerk"
 
 Gem::Specification.new do |spec|
@@ -36,6 +35,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-rake", "~> 0.5"
   spec.add_development_dependency "rubocop-rspec", "~> 1.37"
   spec.add_development_dependency "simplecov", "~> 0.18"
+
+  spec.add_runtime_dependency 'faraday'
 
   spec.files = Dir["lib/**/*"]
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
