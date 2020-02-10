@@ -24,7 +24,7 @@ module MailClerk
 
   def self.deliver(slug,data={},options={})
     conn = Faraday.new(
-      url: 'http://api.mailclerk.app',
+      url: 'http://api.mailclerk.app/v1',
       headers: {'Content-Type' => 'application/json', 'API_KEY' => ENV['MAILCLERK_API_KEY']}
     )
 
