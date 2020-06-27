@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'faraday'
 
 module MailClerk
 
@@ -9,7 +10,7 @@ module MailClerk
     end
 
     def self.label
-      "Mailclerk"
+      "MailClerk"
     end
 
     def self.version
@@ -21,13 +22,19 @@ module MailClerk
     end
   end
 
-  def self.deliver(slug,data={},options={})
+  def self.deliver(slug,options,data={})
+
+    if options.instance_of? String or options.instance_of? Array
+      options = {to: options}
+    end
+
+    api_url = ENV['RAILS_ENV'] === 'development' ? 'http://api.lvh.me:3000' : 'https://api.mailclerk.app' # Move this to option?
     conn = Faraday.new(
-      url: 'http://api.mailclerk.app/v1',
+      url: api_url,
       headers: {'Content-Type' => 'application/json', 'API_KEY' => ENV['MAILCLERK_API_KEY']}
     )
 
-    resp = conn.post('/'+slug+'/deliver') do |req|
+    resp = conn.post('v1/'+slug+'/deliver') do |req|
       req.body = {data: data, options: options}.to_json
     end
 
