@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.append File.expand_path("lib", __dir__)
-require "mailclerk"
+require "MailClerk"
 
 Gem::Specification.new do |spec|
   spec.name = MailClerk::Identity.name
