@@ -6,7 +6,7 @@ module MailClerk
   # Gem identity information.
   module Identity
     def self.name
-      "mailclerk-ruby"
+      "mailclerk"
     end
 
     def self.label
