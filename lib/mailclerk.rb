@@ -22,19 +22,18 @@ module MailClerk
     end
   end
 
+  # Syntax intended to emulate ActionMailer
   def self.deliver(slug,options,data={})
 
     if options.instance_of? String or options.instance_of? Array
       options = {to: options}
     end
 
-    api_url = ENV['RAILS_ENV'] === 'development' ? 'http://api.lvh.me:3000' : 'https://api.mailclerk.app' # Move this to option?
-    conn = Faraday.new(
-      url: api_url,
-      headers: {'Content-Type' => 'application/json', 'API_KEY' => ENV['MAILCLERK_API_KEY']}
-    )
+    api_url = ENV['MAILCLERK_API_URL'] || 'https://api.mailclerk.app'
+    conn = Faraday.new(url: api_url)
+    conn.basic_auth(ENV['MAILCLERK_API_KEY'], '')
 
-    resp = conn.post('v1/'+slug+'/deliver') do |req|
+    resp = conn.post('v1/emails/'+slug+'/deliver') do |req|
       req.body = {data: data, options: options}.to_json
     end
 
