@@ -27,7 +27,7 @@ module MailClerk
 
     api_url = ENV['MAILCLERK_API_URL'] || 'https://api.mailclerk.app'
     conn = Faraday.new(url: api_url)
-    conn.basic_auth(ENV['MAILCLERK_API_KEY'], '')
+    conn.basic_auth(self.api_key, '')
 
     resp = conn.post('v1/emails/'+slug+'/deliver') do |req|
       req.body = {recipient: recipient, data: data, options: options}.to_json
