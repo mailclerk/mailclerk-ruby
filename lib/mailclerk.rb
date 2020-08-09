@@ -2,6 +2,9 @@
 require 'faraday'
 
 module MailClerk
+  class << self
+    attr_accessor :api_key
+  end
 
   # Gem identity information.
   module Identity
