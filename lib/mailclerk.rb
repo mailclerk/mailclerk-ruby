@@ -26,11 +26,11 @@ module MailClerk
   end
 
   # Syntax intended to emulate ActionMailer
-  def self.deliver(slug,recipient,data={},options={})
+  def self.deliver(template,recipient,data={},options={})
     api_url = ENV['MAILCLERK_API_URL'] || 'https://api.mailclerk.app'
     conn = Faraday.new(url: api_url)
     conn.basic_auth(self.api_key, '')
-    resp = conn.post('v1/emails/'+slug+'/deliver', {recipient: recipient, data: data, options: options}.to_json, {'Content-Type'=>'application/json'})
+    resp = conn.post('v1/deliver', {template: template, recipient: recipient, data: data, options: options}.to_json, {'Content-Type'=>'application/json'})
     return resp
   end
 
