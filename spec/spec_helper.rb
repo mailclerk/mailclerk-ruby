@@ -7,7 +7,7 @@ SimpleCov.start { enable_coverage :branch }
 
 require "pry"
 require "pry-byebug"
-require "mailclerk/ruby"
+require "Mailclerk/ruby"
 
 Dir[File.join(__dir__, "support", "shared_contexts", "**/*.rb")].each(&method(:require))
 

@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="mailclerk-ruby.png" alt="Mailclerk Ruby Icon"/>
+  <img src="Mailclerk-ruby.png" alt="Mailclerk Ruby Icon"/>
 </p>
 
 # Mailclerk Ruby
 
-[![Gem Version](https://badge.fury.io/rb/mailclerk-ruby.svg)](http://badge.fury.io/rb/mailclerk-ruby)
+[![Gem Version](https://badge.fury.io/rb/Mailclerk-ruby.svg)](http://badge.fury.io/rb/Mailclerk-ruby)
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
@@ -37,11 +37,11 @@
 
 To install, run:
 
-    gem install mailclerk-ruby
+    gem install Mailclerk-ruby
 
 Add the following to your Gemfile:
 
-    gem "mailclerk-ruby"
+    gem "Mailclerk-ruby"
 
 ## Usage
 

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift(::File.join(::File.dirname(__FILE__), "lib"))
-require "mailclerk"
+require "Mailclerk"
 
 Gem::Specification.new do |spec|
-  spec.name = MailClerk::Identity.name
-  spec.version = MailClerk::Identity.version
+  spec.name = Mailclerk::Identity.name
+  spec.version = Mailclerk::Identity.version
   spec.platform = Gem::Platform::RUBY
   spec.authors = [""]
   spec.email = ["noah.litvin@gmail.com"]

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'faraday'
 
-module MailClerk
+module Mailclerk
   class << self
     attr_accessor :api_key
   end
@@ -9,11 +9,11 @@ module MailClerk
   # Gem identity information.
   module Identity
     def self.name
-      "mailclerk"
+      "Mailclerk"
     end
 
     def self.label
-      "MailClerk"
+      "Mailclerk"
     end
 
     def self.version
@@ -27,7 +27,7 @@ module MailClerk
 
   # Syntax intended to emulate ActionMailer
   def self.deliver(template,recipient,data={},options={})
-    api_url = ENV['MAILCLERK_API_URL'] || 'https://api.mailclerk.app'
+    api_url = ENV['Mailclerk_API_URL'] || 'https://api.Mailclerk.app'
     conn = Faraday.new(url: api_url)
     conn.basic_auth(self.api_key, '')
     resp = conn.post('deliver', {template: template, recipient: recipient, data: data, options: options}.to_json, {'Content-Type'=>'application/json'})
