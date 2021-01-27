@@ -10,16 +10,17 @@
 
 ## Table of Contents
 
-- [Requirements](#requirements)
-- [Setup](#setup)
-- [Usage](#usage)
-- [Tests](#tests)
-- [Versioning](#versioning)
-- [Code of Conduct](#code-of-conduct)
-- [Contributions](#contributions)
-- [License](#license)
-- [History](#history)
-- [Credits](#credits)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [API Key & URL](#api-key--url)
+  - [Usage](#usage)
+  - [Varying API Keys](#changing-api-keys)
+  - [Tests](#tests)
+  - [Versioning](#versioning)
+  - [Code of Conduct](#code-of-conduct)
+  - [Contributions](#contributions)
+  - [License](#license)
+  - [History](#history)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
@@ -76,10 +77,10 @@ Mailclerk.deliver("welcome-email", "alice@example.com", { name: "Alice" })
 
 See [Mailclerk documentation](https://dashboard.mailclerk.app/docs) for more details.
 
-## Changing API Keys
+## Varying API Keys
 
 If you need to use multiple API keys, you can also initialize `Mailclerk::Client`
-with the keys. This:
+instances with different keys. This:
 ```
 mc_client = Mailclerk.new("mc_yourprivatekey")
 mc_client.deliver("welcome-email", "bob@example.com")
