@@ -4,3 +4,5 @@
 pkg/*
 Gemfile.lock
 tmp
+.DB
+.DS_Store

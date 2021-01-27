@@ -2,7 +2,7 @@
   <img src="Mailclerk-ruby.png" alt="Mailclerk Ruby Icon"/>
 </p>
 
-# Mailclerk Ruby
+# Mailclerk
 
 [![Gem Version](https://badge.fury.io/rb/Mailclerk-ruby.svg)](http://badge.fury.io/rb/Mailclerk-ruby)
 
@@ -10,8 +10,6 @@
 
 ## Table of Contents
 
-- [Features](#features)
-- [Screencasts](#screencasts)
 - [Requirements](#requirements)
 - [Setup](#setup)
 - [Usage](#usage)
@@ -25,10 +23,6 @@
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
-## Features
-
-## Screencasts
-
 ## Requirements
 
 1. [Ruby 2.7.0](https://www.ruby-lang.org)
@@ -37,19 +31,72 @@
 
 To install, run:
 
-    gem install Mailclerk-ruby
+```
+gem install mailclerk
+```
 
 Add the following to your Gemfile:
+```
+gem "mailclerk"
+```
 
-    gem "Mailclerk-ruby"
+## API Key & URL
+
+To set the Mailclerk API Key (begins with `mc_`), you can provide it as an
+environmental variable: `MAILCLERK_API_KEY`. Alternatively, you can 
+set it directly on the Mailclerk module:
+
+```
+# config/initializers/mailcerk.rb
+Mailclerk.api_key = "mc_yourprivatekey"
+```
+
+_If you are using version control like git, we strongly recommend storing your
+production API keys in environmental variables_.
+
+The default API endpoint is `https://api.mailcerk.app`. To change this, you
+can provide a `MAILCLERK_API_URL` ENV variable or set `Mailclerk.mailcerk_url`.
 
 ## Usage
 
+You'll an active account and at least one template (in the example `welcome-email`).
+
+To send an email to "alice@example.com":
+
+```
+Mailclerk.deliver("welcome-email", "alice@example.com")
+```
+
+If the template has any dynamic data, you can include it in the third parameter
+as a hash:
+
+```
+Mailclerk.deliver("welcome-email", "alice@example.com", { name: "Alice" })
+```
+
+See [Mailclerk documentation](https://dashboard.mailclerk.app/docs) for more details.
+
+## Changing API Keys
+
+If you need to use multiple API keys, you can also initialize `Mailclerk::Client`
+with the keys. This:
+```
+mc_client = Mailclerk.new("mc_yourprivatekey")
+mc_client.deliver("welcome-email", "bob@example.com")
+```
+
+Is equivalent to this:
+```
+Mailclerk.api_key = "mc_yourprivatekey"
+Mailclerk.deliver("welcome-email", "bob@example.com")
+```
+
 ## Tests
 
-To test, run:
-
-    bundle exec rake
+Tests aren't current implemented. When they are, to test, run:
+```
+bundle exec rake
+```
 
 ## Versioning
 
@@ -70,15 +117,10 @@ Read [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## License
 
-Copyright 2020 []().
+Copyright 2021 [Mailclerk](https://mailclerk.app/).
 Read [LICENSE](LICENSE.md) for details.
 
 ## History
 
 Read [CHANGES](CHANGES.md) for details.
 Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
-
-## Credits
-
-Developed by []() at
-[]().

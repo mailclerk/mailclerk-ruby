@@ -1,9 +1,0 @@
-#! /usr/bin/env ruby
-
-require "bundler/setup"
-require "Mailclerk"
-require "pry"
-require "pry-byebug"
-require "irb"
-
-IRB.start __FILE__

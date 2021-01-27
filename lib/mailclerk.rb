@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 require 'faraday'
 
+DEFAULT_API_URL = "https://api.mailcerk.app"
+
 module Mailclerk
   class << self
     attr_accessor :api_key
+    attr_accessor :api_url
   end
-
+  
   # Gem identity information.
   module Identity
     def self.name
@@ -13,25 +16,59 @@ module Mailclerk
     end
 
     def self.label
-      "Mailclerk"
+      "Mailclerk Ruby"
     end
 
     def self.version
-      "0.0.1"
+      "0.1.0"
     end
 
     def self.version_label
-      "#{label} #{version}"
+      "#{ label } #{ version }"
+    end
+  end
+
+  class MailclerkError < StandardError
+  end
+  
+  class Client
+    def initialize(api_key, api_url=nil)
+      @api_key = api_key
+      @api_url = api_url || ENV['MAILCLERK_API_URL'] || DEFAULT_API_URL
+      
+      if @api_key.nil?
+        raise MailclerkError.new "No Mailclerk API Key provided. Set `Mailclerk.api_key`"
+      end
+
+      if @api_url.nil? || @api_url.empty?
+        raise MailclerkError.new "Mailclerk API URL empty"
+      end
+    end
+    
+    def deliver(template, recipient, data={}, options={})
+      conn = Faraday.new(url: @api_url)
+      conn.basic_auth(@api_key, '')
+      
+      resp = conn.post('deliver', {
+        'template' => template,
+        'recipient' => recipient,
+        'data' => data,
+        'options' => options
+      }.to_json, {
+        'Content-Type' => 'application/json',
+        'X-Client-Version' => self.version_label
+      })
+
+      return resp
     end
   end
 
   # Syntax intended to emulate ActionMailer
-  def self.deliver(template,recipient,data={},options={})
-    api_url = ENV['Mailclerk_API_URL'] || 'https://api.Mailclerk.app'
-    conn = Faraday.new(url: api_url)
-    conn.basic_auth(self.api_key, '')
-    resp = conn.post('deliver', {template: template, recipient: recipient, data: data, options: options}.to_json, {'Content-Type'=>'application/json'})
-    return resp
+  def self.deliver(*args)
+    api_key = self.api_key || ENV['MAILCLERK_API_KEY']
+    
+    client = Client.new(api_key, self.api_url)
+    return client.deliver(*args)
   end
 
 end
