@@ -51,15 +51,15 @@ environmental variable: `MAILCLERK_API_KEY`. Alternatively, you can
 set it directly on the Mailclerk module:
 
 ```
-# config/initializers/mailcerk.rb
+# config/initializers/mailclerk.rb
 Mailclerk.api_key = "mc_yourprivatekey"
 ```
 
 _If you are using version control like git, we strongly recommend storing your
 production API keys in environmental variables_.
 
-The default API endpoint is `https://api.mailcerk.app`. To change this, you
-can provide a `MAILCLERK_API_URL` ENV variable or set `Mailclerk.mailcerk_url`.
+The default API endpoint is `https://api.mailclerk.app`. To change this, you
+can provide a `MAILCLERK_API_URL` ENV variable or set `Mailclerk.mailclerk_url`.
 
 ## Usage
 
