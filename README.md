@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="mailcerk.png" alt="Mailclerk Logo"/>
+  <img src="https://github.com/mailclerk/mailclerk-ruby/blob/main/mailclerk.png?raw=true" alt="Mailclerk Logo"/>
 </p>
 
 # Mailclerk
@@ -12,17 +12,17 @@ Mailclerk helps anyone on your team design great emails, improve their performan
 
 ## Table of Contents
 
-  - [Requirements](#requirements)
-  - [Setup](#setup)
-  - [API Key & URL](#api-key--url)
-  - [Usage](#usage)
-  - [Varying API Keys](#varying-api-keys)
-  - [Tests](#tests)
-  - [Versioning](#versioning)
-  - [Code of Conduct](#code-of-conduct)
-  - [Contributions](#contributions)
-  - [License](#license)
-  - [History](#history)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [API Key & URL](#api-key--url)
+- [Usage](#usage)
+- [Varying API Keys](#changing-api-keys)
+- [Tests](#tests)
+- [Versioning](#versioning)
+- [Code of Conduct](#code-of-conduct)
+- [Contributions](#contributions)
+- [License](#license)
+- [History](#history)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
