@@ -1,9 +1,11 @@
 # frozen_string_literal: true
-require 'faraday'
 
-DEFAULT_API_URL = "https://api.mailcerk.app"
+require 'faraday'
+require 'json'
 
 module Mailclerk
+  DEFAULT_API_URL = "https://api.mailclerk.app"
+  
   class << self
     attr_accessor :api_key
     attr_accessor :api_url
@@ -56,7 +58,7 @@ module Mailclerk
         'options' => options
       }.to_json, {
         'Content-Type' => 'application/json',
-        'X-Client-Version' => self.version_label
+        'X-Client-Version' => Identity.version_label
       })
 
       return resp

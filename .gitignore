@@ -6,3 +6,4 @@ Gemfile.lock
 tmp
 .DB
 .DS_Store
+scratch.rb
