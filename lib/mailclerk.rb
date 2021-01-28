@@ -14,7 +14,7 @@ module Mailclerk
   # Gem identity information.
   module Identity
     def self.name
-      "Mailclerk"
+      "mailclerk"
     end
 
     def self.label

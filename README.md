@@ -4,7 +4,7 @@
 
 # Mailclerk
 
-[![Gem Version](https://badge.fury.io/rb/Mailclerk-ruby.svg)](http://badge.fury.io/rb/Mailclerk-ruby)
+[![Gem Version](https://badge.fury.io/rb/mailclerk.svg)](http://badge.fury.io/rb/mailclerk)
 
 Mailclerk helps anyone on your team design great emails, improve their performance, and free up developer time. [Learn more](https://mailclerk.app/)
 
@@ -12,17 +12,17 @@ Mailclerk helps anyone on your team design great emails, improve their performan
 
 ## Table of Contents
 
-  - [Requirements](#requirements)
-  - [Setup](#setup)
-  - [API Key & URL](#api-key--url)
-  - [Usage](#usage)
-  - [Varying API Keys](#varying-api-keys)
-  - [Tests](#tests)
-  - [Versioning](#versioning)
-  - [Code of Conduct](#code-of-conduct)
-  - [Contributions](#contributions)
-  - [License](#license)
-  - [History](#history)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [API Key & URL](#api-key--url)
+- [Usage](#usage)
+- [Varying API Keys](#changing-api-keys)
+- [Tests](#tests)
+- [Versioning](#versioning)
+- [Code of Conduct](#code-of-conduct)
+- [Contributions](#contributions)
+- [License](#license)
+- [History](#history)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
