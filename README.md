@@ -99,7 +99,7 @@ Mailclerk.deliver("welcome-email", "bob@example.com")
 
 ## Tests
 
-Tests aren't current implemented. When they are, to test, run:
+Tests aren't currently implemented. When they are, to test, run:
 
 ```
 bundle exec rake
