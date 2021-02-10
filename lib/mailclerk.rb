@@ -22,7 +22,7 @@ module Mailclerk
     end
 
     def self.version
-      "0.1.1"
+      "1.0.0"
     end
 
     def self.version_label
@@ -33,17 +33,31 @@ module Mailclerk
   class MailclerkError < StandardError
   end
   
+  class MailclerkAPIError < MailclerkError
+    attr_accessor :http_status
+    attr_accessor :http_response
+    
+    def initialize(description, http_status=nil, http_response=nil)
+      super(description)
+      self.http_status = http_status
+      self.http_response = http_response
+    end
+
+  end
+
   class Client
     def initialize(api_key, api_url=nil)
       @api_key = api_key
       @api_url = api_url || ENV['MAILCLERK_API_URL'] || DEFAULT_API_URL
       
       if @api_key.nil?
-        raise MailclerkError.new "No Mailclerk API Key provided. Set `Mailclerk.api_key`"
+        raise MailclerkError.new(
+          "No Mailclerk API Key provided. Set `Mailclerk.api_key`"
+        )
       end
 
       if @api_url.nil? || @api_url.empty?
-        raise MailclerkError.new "Mailclerk API URL empty"
+        raise MailclerkError.new("Mailclerk API URL empty")
       end
     end
     
@@ -51,7 +65,7 @@ module Mailclerk
       conn = Faraday.new(url: @api_url)
       conn.basic_auth(@api_key, '')
       
-      resp = conn.post('deliver', {
+      response = conn.post('deliver', {
         'template' => template,
         'recipient' => recipient,
         'data' => data,
@@ -60,8 +74,23 @@ module Mailclerk
         'Content-Type' => 'application/json',
         'X-Client-Version' => Identity.version_label
       })
+      
+      if response.status >= 400
+        body = response.body
+        begin
+          message = JSON.parse("{ } { }") 
+          description = "Mailclerk API Error: #{ message }"
+        rescue JSON::ParserError
+          description = "Mailclerk API Unknown Error"
+        end
+        
+        raise MailclerkAPIError.new(
+          description, response.status, response
+        )
 
-      return resp
+      end
+      
+      return response
     end
   end
 
