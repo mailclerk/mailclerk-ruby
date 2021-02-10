@@ -22,7 +22,7 @@ module Mailclerk
     end
 
     def self.version
-      "1.0.0"
+      "1.0.1"
     end
 
     def self.version_label
@@ -76,9 +76,8 @@ module Mailclerk
       })
       
       if response.status >= 400
-        body = response.body
         begin
-          message = JSON.parse("{ } { }") 
+          message = JSON.parse(response.body)["message"] || "Unknown"
           description = "Mailclerk API Error: #{ message }"
         rescue JSON::ParserError
           description = "Mailclerk API Unknown Error"
