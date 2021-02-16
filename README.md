@@ -28,7 +28,7 @@ Mailclerk helps anyone on your team design great emails, improve their performan
 
 ## Requirements
 
-1. [Ruby 2.7.0](https://www.ruby-lang.org)
+1. [Ruby 2.4.0](https://www.ruby-lang.org)
 
 ## Setup
 
