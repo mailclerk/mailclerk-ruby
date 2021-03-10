@@ -50,7 +50,7 @@ To set the Mailclerk API Key (begins with `mc_`), you can provide it as an
 environmental variable: `MAILCLERK_API_KEY`. Alternatively, you can
 set it directly on the Mailclerk module:
 
-```
+```ruby
 # config/initializers/mailclerk.rb
 Mailclerk.api_key = "mc_live_yourprivatekey"
 ```
@@ -67,14 +67,14 @@ You'll need an active account and at least one template (in the example `welcome
 
 To send an email to "alice@example.com":
 
-```
+```ruby
 Mailclerk.deliver("welcome-email", "alice@example.com")
 ```
 
 If the template has any dynamic data, you can include it in the third parameter
 as a hash:
 
-```
+```ruby
 Mailclerk.deliver("welcome-email", "alice@example.com", { name: "Alice" })
 ```
 
@@ -85,14 +85,14 @@ See [Mailclerk documentation](https://dashboard.mailclerk.app/docs) for more det
 If you need to use multiple API keys, you can also initialize `Mailclerk::Client`
 instances with different keys. This:
 
-```
+```ruby
 mc_client = Mailclerk.new("mc_live_yourprivatekey")
 mc_client.deliver("welcome-email", "bob@example.com")
 ```
 
 Is equivalent to this:
 
-```
+```ruby
 Mailclerk.api_key = "mc_live_yourprivatekey"
 Mailclerk.deliver("welcome-email", "bob@example.com")
 ```
@@ -104,7 +104,7 @@ and a test key (beginning with `mc_test`). If you use the test key, emails will
 not be delivered, but will show up in the logs on the account. To disable
 this in your test suite, set the `local_test_mode` value on the library:
 
-```
+```ruby
 # In rails: rails_helper.rb
 Mailclerk.local_test_mode = true
 ```
@@ -112,7 +112,7 @@ Mailclerk.local_test_mode = true
 This will also enable helper methods which you can use to write tests checking
 emails are sent with the correct data:
 
-```
+```ruby
 # Number of emails "sent"
 Mailclerk.testing.emails.length
 
@@ -131,7 +131,7 @@ email.delivery["html"]    # "<html><body>..."
 In between test cases, you should clear the stored emails by calling `Mailclerk.testing.reset`.
 
 For example, in Rspec + Rails: 
-```
+```ruby
 # rails_helper.rb
 RSpec.configure do |config|
   config.before(:each) do
@@ -141,7 +141,7 @@ end
 ```
 
 See the [Mailclerk testing documentation](https://dashboard.mailclerk.app/docs#testing)
-for more details
+for more details.
 
 ## Versioning
 
