@@ -69,6 +69,8 @@ To send an email to "alice@example.com":
 
 ```ruby
 Mailclerk.deliver("welcome-email", "alice@example.com")
+Mailclerk.deliver("welcome-email", "Alice Adams <alice@example.com>")
+Mailclerk.deliver("welcome-email", { name: "Alice Adams", address: "<alice@example.com>" })
 ```
 
 If the template has any dynamic data, you can include it in the third parameter
@@ -101,41 +103,63 @@ Mailclerk.deliver("welcome-email", "bob@example.com")
 
 Your Mailclerk environment has two API keys: a production key (beginning with `mc_live`)
 and a test key (beginning with `mc_test`). If you use the test key, emails will
-not be delivered, but will show up in the logs on the account. To disable
-this in your test suite, set the `local_test_mode` value on the library:
+not be delivered, but will show up in the logs on your Mailclerk account and can be
+previewed there (replacing e.g. [Letter Opener](https://github.com/ryanb/letter_opener)). 
+
+To avoid cluttering up your Mailclerk test logs with sends triggered by your
+automated test suite, call `Mailclerk.outbox.enable` in the file that 
+configures your tests. For example, in Rspec with Rails, add:
 
 ```ruby
-# In rails: rails_helper.rb
-Mailclerk.local_test_mode = true
+# spec/rails_helper.rb
+Mailclerk.outbox.enable
 ```
 
-This will also enable helper methods which you can use to write tests checking
+This will also enable utility methods which you can use to write tests that check
 emails are sent with the correct data:
 
 ```ruby
 # Number of emails "sent"
-Mailclerk.testing.emails.length
+Mailclerk.outbox.length
 
 # Returns all emails of matching a template or email recipient. See method
-Mailclerk.testing.emails.filter(template: "welcome-email")
-Mailclerk.testing.emails.filter(recipient_email: "felix@example.com")
+Mailclerk.outbox.filter(template: "welcome-email")
+Mailclerk.outbox.filter(recipient_email: "felix@example.com")
 
 # Returns the most recent email (instance of Mailclerk::TestEmail):
-email = Mailclerk.testing.emails.last
-email.template            # "welcome-email"
-email.delivery["subject"] # "Welcome to Acme Co."
-email.delivery["html"]    # "<html><body>..."
+email = Mailclerk.outbox.last
+email.template        # "welcome-email"
+email.recipient_email # "felix@example.com"
+email.subject         # "Welcome to Acme Felix"
+email.html            # "<html><body>..."
 ```
 
+`Mailclerk::TestEmail` has the following attributes:
 
-In between test cases, you should clear the stored emails by calling `Mailclerk.testing.reset`.
+| Attribute | Description |
+---
+| `template`        | Slug of the template sent (1st argument to `Mailclerk.deliver`) |
+| `recipient`       | Hash represent the send recipient (2nd argument to `Mailclerk.deliver`) |
+| `recipient_email` | Email of the send recipient |
+| `recipient_name`  | Name of the send recipient (nil if not specified) |
+| `data`            | Dynamic data for the send (3rd argument to `Mailclerk.deliver`) |
+| `options`         | Options specified for the send (4th argument to `Mailclerk.deliver`) |
+| `subject`         | From Mailclerk: Final subject |
+| `from`            | From Mailclerk: Hash with `name` and `address` of the sender |
+| `subject`         | From Mailclerk: Text of the send's subject line |
+| `preheader`       | From Mailclerk: Text of the send's preheader |
+| `html`            | From Mailclerk: Rendered body HTML for the send |
+| `text`            | From Mailclerk: Rendered plaintext version of the send |
+| `headers`         | From Mailclerk: Extra email headers (e.g. `reply-to`) |
 
-For example, in Rspec + Rails: 
+In between test cases, you should clear the stored emails by calling `Mailclerk.outbox.reset`.
+
+For example, in Rspec with Rails: 
 ```ruby
-# rails_helper.rb
+# spec/rails_helper.rb
 RSpec.configure do |config|
   config.before(:each) do
-    Mailclerk.testing.reset
+    Mailclerk.outbox.reset
   end
 end
 ```
