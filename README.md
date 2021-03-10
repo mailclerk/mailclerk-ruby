@@ -134,7 +134,19 @@ email.subject         # "Welcome to Acme Felix"
 email.html            # "<html><body>..."
 ```
 
-`Mailclerk::TestEmail` has the following attributes:
+In between test cases, you should clear the stored emails by calling `Mailclerk.outbox.reset`.
+
+For example, in Rspec with Rails: 
+```ruby
+# spec/rails_helper.rb
+RSpec.configure do |config|
+  config.before(:each) do
+    Mailclerk.outbox.reset
+  end
+end
+```
+
+`Mailclerk::OutboxEmail` has the following attributes:
 
 | Attribute | Description |
 ---
@@ -151,18 +163,6 @@ email.html            # "<html><body>..."
 | `html`            | From Mailclerk: Rendered body HTML for the send |
 | `text`            | From Mailclerk: Rendered plaintext version of the send |
 | `headers`         | From Mailclerk: Extra email headers (e.g. `reply-to`) |
-
-In between test cases, you should clear the stored emails by calling `Mailclerk.outbox.reset`.
-
-For example, in Rspec with Rails: 
-```ruby
-# spec/rails_helper.rb
-RSpec.configure do |config|
-  config.before(:each) do
-    Mailclerk.outbox.reset
-  end
-end
-```
 
 See the [Mailclerk testing documentation](https://dashboard.mailclerk.app/docs#testing)
 for more details.
