@@ -17,7 +17,7 @@ Mailclerk helps anyone on your team design great emails, improve their performan
 - [API Key & URL](#api-key--url)
 - [Usage](#usage)
 - [Varying API Keys](#varying-api-keys)
-- [Tests](#tests)
+- [Usage in Test Environments](#usage-in-test-environments)
 - [Versioning](#versioning)
 - [Code of Conduct](#code-of-conduct)
 - [Contributions](#contributions)
@@ -52,7 +52,7 @@ set it directly on the Mailclerk module:
 
 ```
 # config/initializers/mailclerk.rb
-Mailclerk.api_key = "mc_yourprivatekey"
+Mailclerk.api_key = "mc_live_yourprivatekey"
 ```
 
 _If you are using version control like git, we strongly recommend storing your
@@ -86,24 +86,62 @@ If you need to use multiple API keys, you can also initialize `Mailclerk::Client
 instances with different keys. This:
 
 ```
-mc_client = Mailclerk.new("mc_yourprivatekey")
+mc_client = Mailclerk.new("mc_live_yourprivatekey")
 mc_client.deliver("welcome-email", "bob@example.com")
 ```
 
 Is equivalent to this:
 
 ```
-Mailclerk.api_key = "mc_yourprivatekey"
+Mailclerk.api_key = "mc_live_yourprivatekey"
 Mailclerk.deliver("welcome-email", "bob@example.com")
 ```
 
-## Tests
+## Usage in Test Environments
 
-Tests aren't currently implemented. When they are, to test, run:
+Your Mailclerk environment has two API keys: a production key (beginning with `mc_live`)
+and a test key (beginning with `mc_test`). If you use the test key, emails will
+not be delivered, but will show up in the logs on the account. To disable
+this in your test suite, set the `local_test_mode` value on the library:
 
 ```
-bundle exec rake
+# In rails: rails_helper.rb
+Mailclerk.local_test_mode = true
 ```
+
+This will also enable helper methods which you can use to write tests checking
+emails are sent with the correct data:
+
+```
+# Number of emails "sent"
+Mailclerk.testing.emails.length
+
+# Returns all emails of matching a template or email recipient. See method
+Mailclerk.testing.emails.filter(template: "welcome-email")
+Mailclerk.testing.emails.filter(recipient_email: "felix@example.com")
+
+# Returns the most recent email (instance of Mailclerk::TestEmail):
+email = Mailclerk.testing.emails.last
+email.template            # "welcome-email"
+email.delivery["subject"] # "Welcome to Acme Co."
+email.delivery["html"]    # "<html><body>..."
+```
+
+
+In between test cases, you should clear the stored emails by calling `Mailclerk.testing.reset`.
+
+For example, in Rspec + Rails: 
+```
+# rails_helper.rb
+RSpec.configure do |config|
+  config.before(:each) do
+    Mailclerk.testing.reset
+  end
+end
+```
+
+See the [Mailclerk testing documentation](https://dashboard.mailclerk.app/docs#testing)
+for more details
 
 ## Versioning
 
