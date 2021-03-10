@@ -149,7 +149,7 @@ end
 `Mailclerk::OutboxEmail` has the following attributes:
 
 | Attribute | Description |
----
+| ----------- | ----------- |
 | `template`        | Slug of the template sent (1st argument to `Mailclerk.deliver`) |
 | `recipient`       | Hash represent the send recipient (2nd argument to `Mailclerk.deliver`) |
 | `recipient_email` | Email of the send recipient |
