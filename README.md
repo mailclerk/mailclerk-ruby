@@ -16,8 +16,8 @@ Mailclerk helps anyone on your team design great emails, improve their performan
 - [Setup](#setup)
 - [API Key & URL](#api-key--url)
 - [Usage](#usage)
-- [Varying API Keys](#varying-api-keys)
 - [Usage in Test Environments](#usage-in-test-environments)
+- [Varying API Keys](#varying-api-keys)
 - [Versioning](#versioning)
 - [Code of Conduct](#code-of-conduct)
 - [Contributions](#contributions)
@@ -82,23 +82,6 @@ Mailclerk.deliver("welcome-email", "alice@example.com", { name: "Alice" })
 
 See [Mailclerk documentation](https://dashboard.mailclerk.app/docs) for more details.
 
-## Varying API Keys
-
-If you need to use multiple API keys, you can also initialize `Mailclerk::Client`
-instances with different keys. This:
-
-```ruby
-mc_client = Mailclerk.new("mc_live_yourprivatekey")
-mc_client.deliver("welcome-email", "bob@example.com")
-```
-
-Is equivalent to this:
-
-```ruby
-Mailclerk.api_key = "mc_live_yourprivatekey"
-Mailclerk.deliver("welcome-email", "bob@example.com")
-```
-
 ## Usage in Test Environments
 
 Your Mailclerk environment has two API keys: a production key (beginning with `mc_live`)
@@ -151,12 +134,11 @@ end
 | Attribute | Description |
 | ----------- | ----------- |
 | `template`        | Slug of the template sent (1st argument to `Mailclerk.deliver`) |
-| `recipient`       | Hash represent the send recipient (2nd argument to `Mailclerk.deliver`) |
+| `recipient`       | Hash representing the send recipient (2nd argument to `Mailclerk.deliver`) |
 | `recipient_email` | Email of the send recipient |
 | `recipient_name`  | Name of the send recipient (nil if not specified) |
 | `data`            | Dynamic data for the send (3rd argument to `Mailclerk.deliver`) |
 | `options`         | Options specified for the send (4th argument to `Mailclerk.deliver`) |
-| `subject`         | From Mailclerk: Final subject |
 | `from`            | From Mailclerk: Hash with `name` and `address` of the sender |
 | `subject`         | From Mailclerk: Text of the send's subject line |
 | `preheader`       | From Mailclerk: Text of the send's preheader |
@@ -166,6 +148,31 @@ end
 
 See the [Mailclerk testing documentation](https://dashboard.mailclerk.app/docs#testing)
 for more details.
+
+## Varying API Keys
+
+If you need to use multiple API keys, you can also initialize `Mailclerk::Client`
+instances with different keys. This:
+
+```ruby
+mc_client = Mailclerk.new("mc_live_yourprivatekey")
+mc_client.deliver("welcome-email", "bob@example.com")
+```
+
+Is equivalent to this:
+
+```ruby
+Mailclerk.api_key = "mc_live_yourprivatekey"
+Mailclerk.deliver("welcome-email", "bob@example.com")
+```
+
+## Gem Tests
+
+```
+bundle exec rspec
+```
+
+Requires values in .env file as well
 
 ## Versioning
 
