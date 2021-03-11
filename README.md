@@ -87,10 +87,10 @@ See [Mailclerk documentation](https://dashboard.mailclerk.app/docs) for more det
 Your Mailclerk environment has two API keys: a production key (beginning with `mc_live`)
 and a test key (beginning with `mc_test`). If you use the test key, emails will
 not be delivered, but will show up in the logs on your Mailclerk account and can be
-previewed there (replacing e.g. [Letter Opener](https://github.com/ryanb/letter_opener)). 
+previewed there. This replaces tools like [Letter Opener](https://github.com/ryanb/letter_opener) for previewing emails in development.
 
 To avoid cluttering up your Mailclerk test logs with sends triggered by your
-automated test suite, call `Mailclerk.outbox.enable` in the file that 
+automated test suite, call `Mailclerk.outbox.enable` in the file that
 configures your tests. For example, in Rspec with Rails, add:
 
 ```ruby
@@ -119,7 +119,8 @@ email.html            # "<html><body>..."
 
 In between test cases, you should clear the stored emails by calling `Mailclerk.outbox.reset`.
 
-For example, in Rspec with Rails: 
+For example, in Rspec with Rails:
+
 ```ruby
 # spec/rails_helper.rb
 RSpec.configure do |config|
@@ -131,20 +132,20 @@ end
 
 `Mailclerk::OutboxEmail` has the following attributes:
 
-| Attribute | Description |
-| ----------- | ----------- |
-| `template`        | Slug of the template sent (1st argument to `Mailclerk.deliver`) |
+| Attribute         | Description                                                                |
+| ----------------- | -------------------------------------------------------------------------- |
+| `template`        | Slug of the template sent (1st argument to `Mailclerk.deliver`)            |
 | `recipient`       | Hash representing the send recipient (2nd argument to `Mailclerk.deliver`) |
-| `recipient_email` | Email of the send recipient |
-| `recipient_name`  | Name of the send recipient (nil if not specified) |
-| `data`            | Dynamic data for the send (3rd argument to `Mailclerk.deliver`) |
-| `options`         | Options specified for the send (4th argument to `Mailclerk.deliver`) |
-| `from`            | From Mailclerk: Hash with `name` and `address` of the sender |
-| `subject`         | From Mailclerk: Text of the send's subject line |
-| `preheader`       | From Mailclerk: Text of the send's preheader |
-| `html`            | From Mailclerk: Rendered body HTML for the send |
-| `text`            | From Mailclerk: Rendered plaintext version of the send |
-| `headers`         | From Mailclerk: Extra email headers (e.g. `reply-to`) |
+| `recipient_email` | Email of the send recipient                                                |
+| `recipient_name`  | Name of the send recipient (nil if not specified)                          |
+| `data`            | Dynamic data for the send (3rd argument to `Mailclerk.deliver`)            |
+| `options`         | Options specified for the send (4th argument to `Mailclerk.deliver`)       |
+| `from`            | From Mailclerk: Hash with `name` and `address` of the sender               |
+| `subject`         | From Mailclerk: Text of the send's subject line                            |
+| `preheader`       | From Mailclerk: Text of the send's preheader                               |
+| `html`            | From Mailclerk: Rendered body HTML for the send                            |
+| `text`            | From Mailclerk: Rendered plaintext version of the send                     |
+| `headers`         | From Mailclerk: Extra email headers (e.g. `reply-to`)                      |
 
 See the [Mailclerk testing documentation](https://dashboard.mailclerk.app/docs#testing)
 for more details.
