@@ -7,3 +7,4 @@ tmp
 .DB
 .DS_Store
 scratch.rb
+.env
