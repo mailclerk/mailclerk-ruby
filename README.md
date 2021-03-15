@@ -16,7 +16,7 @@ Mailclerk helps anyone on your team design great emails, improve their performan
   - [Setup](#setup)
   - [API Key & URL](#api-key--url)
   - [Usage](#usage)
-  - [Usage in Test Environments](#usage-in-test-environments)
+  - [Testing](#testing)
   - [Varying API Keys](#varying-api-keys)
   - [Gem Tests](#gem-tests)
   - [Versioning](#versioning)
@@ -83,7 +83,7 @@ Mailclerk.deliver("welcome-email", "alice@example.com", { name: "Alice" })
 
 See [Mailclerk documentation](https://dashboard.mailclerk.app/docs) for more details.
 
-## Usage in Test Environments
+## Testing
 
 Your Mailclerk environment has two API keys: a production key (beginning with `mc_live`)
 and a test key (beginning with `mc_test`). If you use the test key, emails will
