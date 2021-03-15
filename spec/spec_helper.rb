@@ -2,12 +2,13 @@
 
 require "bundler/setup"
 
-require "simplecov"
-SimpleCov.start { enable_coverage :branch }
-
 require "pry"
-require "pry-byebug"
-require "Mailclerk/ruby"
+require 'dotenv/load'
+
+Mailclerk.api_key = ENV["MAILCLERK_TEST_API_KEY"]
+Mailclerk.api_url = ENV["MAILCLERK_TEST_API_URL"]
+
+Mailclerk.outbox.enable
 
 Dir[File.join(__dir__, "support", "shared_contexts", "**/*.rb")].each(&method(:require))
 
@@ -29,5 +30,9 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.verify_doubled_constant_names = true
     mocks.verify_partial_doubles = true
+  end
+  
+  config.before(:each) do
+    Mailclerk.outbox.reset
   end
 end
