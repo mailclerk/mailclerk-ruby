@@ -14,6 +14,6 @@
 
 - Drop required ruby version to 2.4 (same as Faraday's)
 
-# 1.1.0 (2021-03-15)
+# 1.1.1 (2021-03-15)
 
 - Adds test suite support and documention on using test keys

@@ -16,10 +16,8 @@ module Mailclerk
     
     # Not just an alias for 'select'
     def filter(query)
-      puts query
       self.select do |email|
         query.all? do |key, value|
-          puts email[key]
           email[key] == value
         end
       end
