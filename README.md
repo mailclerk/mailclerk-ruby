@@ -12,17 +12,18 @@ Mailclerk helps anyone on your team design great emails, improve their performan
 
 ## Table of Contents
 
-- [Requirements](#requirements)
-- [Setup](#setup)
-- [API Key & URL](#api-key--url)
-- [Usage](#usage)
-- [Usage in Test Environments](#usage-in-test-environments)
-- [Varying API Keys](#varying-api-keys)
-- [Versioning](#versioning)
-- [Code of Conduct](#code-of-conduct)
-- [Contributions](#contributions)
-- [License](#license)
-- [History](#history)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [API Key & URL](#api-key--url)
+  - [Usage](#usage)
+  - [Usage in Test Environments](#usage-in-test-environments)
+  - [Varying API Keys](#varying-api-keys)
+  - [Gem Tests](#gem-tests)
+  - [Versioning](#versioning)
+  - [Code of Conduct](#code-of-conduct)
+  - [Contributions](#contributions)
+  - [License](#license)
+  - [History](#history)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
