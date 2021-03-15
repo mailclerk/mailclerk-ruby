@@ -16,4 +16,4 @@
 
 # 1.1.1 (2021-03-15)
 
-- Adds test suite support and documention on using test keys
+- Adds test suite support and documentation on using test keys
