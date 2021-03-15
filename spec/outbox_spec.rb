@@ -8,7 +8,7 @@ RSpec.describe "| Outbox" do
     )
     expect(Mailclerk.outbox.length).to eq(1)
   end
-
+  
   it "| Test send values" do
     Mailclerk.deliver(
       ENV["TEST_TEMPLATE"],
@@ -71,5 +71,63 @@ RSpec.describe "| Outbox" do
     
     expect(email.recipient_email).to eq("alex@example.com")
     expect(email.recipient_name).to eq("Alex Green")
+  end
+  
+  it "| Filter" do
+    Mailclerk.deliver(
+      ENV["TEST_TEMPLATE"],
+      "jane@example.com",
+      { "flag": 10 },
+      { "foo": "bar"  }
+    )
+
+    Mailclerk.deliver(
+      ENV["TEST_TEMPLATE"],
+      "faye@example.com",
+      { "person": { "name": "Mugsby" } },
+      { "foo": "bar"  }
+    )
+
+    # Fetching by name
+
+    expect(Mailclerk.outbox.filter(
+      template: ENV["TEST_TEMPLATE"]
+    ).length).to eq(2)
+
+    expect(Mailclerk.outbox.filter(
+      template: "other-template"
+    ).length).to eq(0)
+
+    # Fetching by recipient_email
+
+    expect(Mailclerk.outbox.filter(
+      recipient_email: "jane@example.com"
+    ).length).to eq(1)
+    
+    expect(Mailclerk.outbox.filter(
+      recipient_email: "jane@example.com"
+    )[0].data.flag).to eq(10)
+    
+    # Multiple conditions
+
+    expect(Mailclerk.outbox.filter(
+      recipient_email: "jane@example.com",
+      template: ENV["TEST_TEMPLATE"]
+    ).length).to eq(1)
+
+    # Chaining conditions
+
+    expect(Mailclerk.outbox.filter(
+      template: ENV["TEST_TEMPLATE"]
+    ).filter(
+      recipient_email: "jane@example.com",
+    ).length).to eq(1)
+
+    # Select also works
+    
+    expect(Mailclerk.outbox.select do |e|
+      e.recipient_email == "jane@example.com"
+    end.length).to eq(1)
+
   end
 end

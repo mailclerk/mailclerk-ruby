@@ -14,6 +14,17 @@ module Mailclerk
       self.clear
     end
     
+    # Not just an alias for 'select'
+    def filter(query)
+      puts query
+      self.select do |email|
+        query.all? do |key, value|
+          puts email[key]
+          email[key] == value
+        end
+      end
+    end
+    
     def add_send(request, response)
       email = OutboxEmail.new(
         OutboxEmail.recursive_init(
@@ -48,7 +59,7 @@ module Mailclerk
     def recipient_name
       return parse_recipient[:name]
     end
-
+    
     private
     
     def parse_recipient

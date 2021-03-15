@@ -26,7 +26,7 @@ module Mailclerk
     end
 
     def self.version
-      "1.0.2"
+      "1.1.0"
     end
 
     def self.version_label
